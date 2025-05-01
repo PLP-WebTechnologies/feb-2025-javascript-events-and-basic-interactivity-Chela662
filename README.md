@@ -1,52 +1,170 @@
-# 🎯 JavaScript Event Handling & Interactive Elements Assignment
+#Event handling
+#Buttn click
+<button id="myButton">Click Me!</button>
 
-Welcome to the **ultimate JavaScript playground**! 🎉 This assignment is where we turn boring web pages into dynamic, responsive, *alive* experiences. Get ready to master **event handling**, build **interactive components**, and validate forms like a pro! 💪
+<script>
+  document.getElementById("myButton").addEventListener("click", function() {
+    this.textContent = "You clicked me!";
+  });
+</script>
 
-## 📁 Assignment Structure
+#Hover effect
+<button id="hoverButton">Hover Over Me!</button>
 
-```
-📂 js-event-assignment/
-├── index.html         # Your playground – where it all comes together
-├── style.css          # Keep it cute (optional but encouraged)
-└── script.js          # The JavaScript wizardry happens here
-```
+<script>
+  const button = document.getElementById("hoverButton");
+  
+  button.addEventListener("mouseover", function() {
+    this.style.backgroundColor = "lightblue";
+  });
 
----
+  button.addEventListener("mouseout", function() {
+    this.style.backgroundColor = "";
+  });
+</script>
 
-## 🧪 What to Build
+#keypresses detection
+<input type="text" id="inputField" placeholder="Type something..." />
 
-Here’s what your interactive bundle of joy should include:
+<script>
+  document.getElementById("inputField").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+      alert("You pressed Enter!");
+    }
+  });
+</script>
 
-### 1. Event Handling 🎈  
-- Button click ✅  
-- Hover effects ✅  
-- Keypress detection ✅  
-- Bonus: A secret action for a *double-click* or *long press* 🤫
+#Long Press
+<button id="doubleClickButton">Double Click Me!</button>
 
-### 2. Interactive Elements 🎮  
-- A button that changes text or color  
-- An image gallery or slideshow  
-- Tabs or accordion-style content  
-- Bonus: Add some animation using JS or CSS ✨
+<script>
+  const button = document.getElementById("doubleClickButton");
 
-### 3. Form Validation 📋✅  
-- Required field checks  
-- Email format validation  
-- Password rules (e.g., min 8 characters)  
-- Bonus: Real-time feedback while typing
+  // Double click
+  button.addEventListener("dblclick", function() {
+    alert("Double-clicked!");
+  });
 
----
+  // Long press detection
+  let pressTimer;
+  button.addEventListener("mousedown", function() {
+    pressTimer = setTimeout(function() {
+      alert("Long Pressed!");
+    }, 2000); // 2 seconds
+  });
 
-## 🧙‍♂️ Pro Tips
+  button.addEventListener("mouseup", function() {
+    clearTimeout(pressTimer);
+  });
+</script>
 
-- Keep your code clean and commented – your future self will thank you!
-- Think about **user experience** – what makes your site more *fun* to use?
-- Don’t be afraid to **Google and experiment** – that’s how real developers roll!
+# Interactive elements
+#Button that changes color
+<button id="colorButton">Change Color</button>
 
----
+<script>
+  document.getElementById("colorButton").addEventListener("click", function() {
+    this.style.backgroundColor = "green";
+    this.textContent = "Color Changed!";
+  });
+</script>
 
-## 🎉 Now Go Make It Fun!
+#Image gallery
+<img id="galleryImage" src="image1.jpg" alt="Image" width="300" />
+<button id="nextImage">Next Image</button>
 
-Remember – this isn't just code. It's your **first step toward creating magical user experiences**. So play around, break stuff (then fix it), and most of all, have FUN! 😄
+<script>
+  const images = ["image1.jpg", "image2.jpg", "image3.jpg"];
+  let currentIndex = 0;
 
-Happy Coding! 💻✨  
+  document.getElementById("nextImage").addEventListener("click", function() {
+    currentIndex = (currentIndex + 1) % images.length;
+    document.getElementById("galleryImage").src = images[currentIndex];
+  });
+</script>
+
+# Accordion-Style Content
+<button class="accordion">Section 1</button>
+<div class="panel">
+  <p>This is the first section of content.</p>
+</div>
+
+<script>
+  document.querySelectorAll(".accordion").forEach(button => {
+    button.addEventListener("click", function() {
+      const panel = this.nextElementSibling;
+      panel.style.display = (panel.style.display === "block") ? "none" : "block";
+    });
+  });
+</script>
+
+#Form validation
+# Required Field Check
+<form id="myForm">
+  <input type="text" id="username" required placeholder="Enter your username">
+  <button type="submit">Submit</button>
+</form>
+
+<script>
+  document.getElementById("myForm").addEventListener("submit", function(event) {
+    const username = document.getElementById("username").value;
+    if (!username) {
+      alert("Username is required!");
+      event.preventDefault(); // Prevent form submission
+    }
+  });
+</script>
+
+#Email Format Validation
+<form id="emailForm">
+  <input type="email" id="email" placeholder="Enter your email" required>
+  <button type="submit">Submit</button>
+</form>
+
+<script>
+  document.getElementById("emailForm").addEventListener("submit", function(event) {
+    const email = document.getElementById("email").value;
+    const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    if (!emailPattern.test(email)) {
+      alert("Please enter a valid email address.");
+      event.preventDefault();
+    }
+  });
+</script>
+
+# Password Length Validation
+<form id="passwordForm">
+  <input type="password" id="password" placeholder="Enter password" required>
+  <button type="submit">Submit</button>
+</form>
+
+<script>
+  document.getElementById("passwordForm").addEventListener("submit", function(event) {
+    const password = document.getElementById("password").value;
+    if (password.length < 8) {
+      alert("Password must be at least 8 characters long.");
+      event.preventDefault();
+    }
+  });
+</script>
+
+# Real-Time Feedback
+<input type="text" id="feedbackField" placeholder="Type here..." />
+<span id="feedbackMessage"></span>
+
+<script>
+  document.getElementById("feedbackField").addEventListener("input", function() {
+    const feedbackMessage = document.getElementById("feedbackMessage");
+    if (this.value.length < 5) {
+      feedbackMessage.textContent = "Keep typing...";
+      feedbackMessage.style.color = "red";
+    } else {
+      feedbackMessage.textContent = "Looks good!";
+      feedbackMessage.style.color = "green";
+    }
+  });
+</script>
+
+
+
+
